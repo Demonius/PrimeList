@@ -14,10 +14,16 @@
                   android:orientation="horizontal">
         <EditText
                 android:id="@+id/enterNumber"
+                android:inputType="number"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-        />
+                android:layout_height="wrap_content"/>
+
+        <ProgressBar android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/progress"
+                     android:indeterminate="true"/>
+
         <Button android:layout_width="0dp" android:layout_height="wrap_content"
                 android:id="@+id/start"
                 android:layout_weight="1"
@@ -28,10 +34,15 @@
                 android:text="@string/clear"/>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-    />
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbars="vertical"
+                android:scrollbarSize="2dp">
+        <TextView
+                android:id="@+id/output"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </ScrollView>
 
 </LinearLayout>

@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="16dp"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
 
-    <EditText
-            android:id="@+id/enterNumber"
-            android:inputType="number"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="mainView" type="by.lukashenko.primenumber.MainViewModel"/>
+        <import type="android.view.View"/>
+    </data>
+    <LinearLayout
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-    />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:orientation="horizontal">
-        <Button android:layout_width="0dp" android:layout_height="wrap_content"
-                android:id="@+id/start"
-                android:layout_weight="1"
-                android:text="@string/start"/>
-        <Button android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/clearCache"
-                android:text="@string/clear"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_margin="16dp"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
 
-    <ProgressBar android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/progress"
-                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                 android:indeterminate="true"/>
-
-    <ScrollView android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
-                android:scrollbars="vertical"
-                android:scrollbarSize="2dp">
-        <TextView
-                android:id="@+id/output"
-
+        <EditText
+                android:id="@+id/enterNumber"
+                android:inputType="number"
+                android:enabled="@{mainView.runCalculate ? false : true}"
+                android:text="@={mainView.maxNumber}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-    </ScrollView>
+                android:layout_height="wrap_content"
+        />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <Button android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:id="@+id/start"
+                    android:onClick="@{mainView::onClickListener}"
+                    android:layout_weight="1"
+                    android:enabled="@{mainView.runCalculate ? false : true}"
+                    android:text="@string/start"/>
+            <Button android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="@{mainView::onClickListener}"
+                    android:id="@+id/clearCache"
+                    android:text="@string/clear"/>
+        </LinearLayout>
 
-</LinearLayout>
+        <ProgressBar android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:visibility="@{mainView.runCalculate ? View.VISIBLE : View.GONE}"
+                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                     android:indeterminate="true"/>
+
+        <ScrollView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbars="vertical"
+                    android:scrollbarSize="2dp">
+            <TextView
+                    android:text="@{mainView.arrayListHistory}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>
